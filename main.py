@@ -23,7 +23,7 @@ def create_author(author: schemas.AuthorCreate, db: Session = Depends(get_db)):
     return crud.create_author(db=db, author=author)
 
 
-@app.get("/authors/{author_id}", response_model=schemas.AuthorRead)
+@app.get("/authors/{author_id}/", response_model=schemas.AuthorRead)
 def read_author(author_id: int, db: Session = Depends(get_db)):
     db_author = crud.get_author(db, author_id=author_id)
     if db_author is None:
@@ -42,7 +42,7 @@ def read_books(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return books
 
 
-@app.get("/books/by_author/{author_id}", response_model=list[schemas.BookRead])
+@app.get("/books/by_author/{author_id}/", response_model=list[schemas.BookRead])
 def read_books_by_author(author_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     books = crud.get_books(db, skip=skip, limit=limit)
     filtered_books = [book for book in books if book.author_id == author_id]
